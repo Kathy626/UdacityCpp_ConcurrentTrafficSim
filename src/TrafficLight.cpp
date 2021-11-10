@@ -46,7 +46,7 @@ void TrafficLight::waitForGreen()
     // runs and repeatedly calls the receive function on the message queue. 
     // Once it receives TrafficLightPhase::green, the method returns.
     while(true) {
-        if(_queue.receive() == TrafficLightPhase::green) {
+        if(_message.receive() == TrafficLightPhase::green) {
             return;
         }
       // sleep for 1ms to reduce load on the processor
@@ -105,7 +105,7 @@ void TrafficLight::cycleThroughPhases()
         }
         time_1 = std::chrono::system_clock::now();
         // push each new TrafficLightPhase into Messagequeue using move semantics in conjunction with send
-        _queue.send(std::move(_currentPhase));
+        _message.send(std::move(_currentPhase));
         
       }
     }
